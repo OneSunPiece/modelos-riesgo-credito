@@ -1,0 +1,13 @@
+# Python 
+.venv/
+__pycache__/
+
+# js
+node_modules/
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform/
+.terraform.lock.hcl
