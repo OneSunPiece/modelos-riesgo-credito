@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendPredictionRequest } from "./api";
+import { sendPredictionRequest } from "./Api";
 
 function App() {
   const [features, setFeatures] = useState("");
