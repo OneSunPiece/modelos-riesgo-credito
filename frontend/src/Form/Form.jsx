@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { sendPredictionRequest } from "./Api";
+import { useState } from "react";
+import { sendPredictionRequest } from "../Api/Api";
+import "./Form.css";
 
-function App() {
+export default function Form() {
   const [features, setFeatures] = useState("");
   const [prediction, setPrediction] = useState(null);
 
@@ -13,9 +14,9 @@ function App() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Prediction App</h1>
+      <form onSubmit={handleSubmit} className="data-input">
+
+        
         <input
           type="text"
           placeholder="Enter features (comma-separated)"
@@ -24,14 +25,5 @@ function App() {
         />
         <button type="submit">Predict</button>
       </form>
-      {prediction !== null && (
-        <div>
-          <h2>Prediction Result:</h2>
-          <p>{prediction}</p>
-        </div>
-      )}
-    </div>
   );
 }
-
-export default App;
