@@ -1,8 +1,9 @@
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import { sendPredictionRequest } from "../Api/Api";
 import "./Form.css";
 
-export default function Form() {
+export default function Form({ setPrediction }) {
   // Variables
   const featureNames = [
     "loan_amnt",
@@ -17,6 +18,10 @@ export default function Form() {
     "purpose",
     "label"
   ];
+  // props
+  Form.propTypes = {
+    setPrediction: PropTypes.func.isRequired,
+  };
 
   // States
   const [features, setFeatures] = useState(
@@ -25,7 +30,6 @@ export default function Form() {
       return acc;
     }, {})
   );
-  const [prediction, setPrediction] = useState(null);
 
   // Functions
   const handleChange = (e) => {

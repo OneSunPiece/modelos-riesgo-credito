@@ -9,17 +9,27 @@ function App() {
   const [data, setData] = useState(
     () => d3.ticks(-2, 2, 200).map(Math.sin)
   );
-  const [payProbability, setpayProbability] = useState(0);
+  //const [payProbability, setpayProbability] = useState(0);
+  const [prediction, setPrediction] = useState(0);
   
-  function CalculateScore(payProbability) {
+  function CalculateScore(prediction) {
     const MAX_SCORE = 850;
     const MIN_SCORE = 300;
 
-    const sum = (MAX_SCORE-MIN_SCORE)*payProbability + MIN_SCORE;
-    return Math.round((sum / data.length) * 100);
+    const score = Math.round( (MAX_SCORE-MIN_SCORE)*prediction + MIN_SCORE );
+    return score;
   }
 
-  var score = CalculateScore(payProbability);
+  function CalculateAngle(score) {
+    const PI = Math.PI;
+    const MAX_SCORE = 850;
+    angle = 2*PI*(score/MAX_SCORE);
+    return angle;
+  }
+
+
+  var score = CalculateScore(prediction);
+  var angle = CalculateAngle(score);
 
   return (
     <div className="App">
@@ -34,7 +44,7 @@ function App() {
           innerRadius={50}
           outerRadius={100}
           startAngle={0}
-          endAngle={Math.PI / 0.7}
+          endAngle={angle}
           width={200}
           height={200}
         />
@@ -42,7 +52,7 @@ function App() {
 
       <section className="data">
         <p>Enter features to predict:</p>
-        <Form />
+        <Form setPrediction={setPrediction} />
       </section>
     </div>
   );
