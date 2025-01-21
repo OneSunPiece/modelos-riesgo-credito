@@ -3,12 +3,13 @@ import boto3
 import os
 import pickle
 import numpy as np
+import random
 
 # S3 client
 s3 = boto3.client('s3')
 
 # LEN of data
-INPUT_LEN = 10
+INPUT_LEN = 11
 
 # Temporary path to store the model in the Lambda environment
 MODEL_PATH = '/tmp/model.pkl'
@@ -33,6 +34,9 @@ def load_model_from_s3():
         print("Model loaded.")
 
     return model
+
+def dummy_prediction():
+    return random.random()
     
 
 def lambda_handler(event, context):
