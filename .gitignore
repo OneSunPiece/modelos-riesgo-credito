@@ -38,3 +38,4 @@ dist-ssr
 # Others
 *.bak
 knn_model.pkl
+model/data/*
