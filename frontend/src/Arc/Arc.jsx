@@ -5,8 +5,8 @@ import * as d3 from 'd3';
 const Arc = ({ innerRadius, outerRadius, startAngle, endAngle, width, height }) => {
   const ref = useRef();
   const backgroundColorArc = '#E6DDD4';
-  const scoreColorArc = '#9E886F';
-
+  const scoreColorArc = '#889D35';
+  
   useEffect(() => {
     const svg = d3.select(ref.current)
       .attr('width', width)

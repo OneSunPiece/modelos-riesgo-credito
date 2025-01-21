@@ -18,6 +18,7 @@ export default function Form({ setPrediction }) {
     "purpose",
     "label"
   ];
+
   // props
   Form.propTypes = {
     setPrediction: PropTypes.func.isRequired,

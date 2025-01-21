@@ -3,6 +3,7 @@ form.data-input {
   grid-template-columns: 1fr 1fr;
   justify-items: center; /* Center the cells horizontally */
   align-items: center;   /* Center the cells vertically */
+  gap: 1rem;
   width: 90%;
 }
 
