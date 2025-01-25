@@ -13,7 +13,7 @@ function App() {
     const MAX_SCORE = 850;
     const MIN_SCORE = 300;
 
-    const score = Math.round( (MAX_SCORE-MIN_SCORE)*prediction + MIN_SCORE );
+    const score = Math.round( (MAX_SCORE-MIN_SCORE)*prediction + MIN_SCORE);
     return score;
   }
 

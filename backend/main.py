@@ -155,10 +155,15 @@ def preprocess_input(input_data):
 
     try:
         # Convert input_data to a DataFrame
+        print('Adding columns to input data...')
         input_data = pd.Series(input_data, index=COLUMN_NAMES)
+        print('Converting input data to DataFrame...')
         input_data = input_data.to_frame().T
-
+        # transforme none to np.nan
+        print('Transforming None values...')
+        input_data = input_data.replace('None', np.nan)
         # Preprocess the data
+        print('Preprocessing data...')
         preprocessed_data = preprocessor.transform(input_data)
 
         return preprocessed_data
