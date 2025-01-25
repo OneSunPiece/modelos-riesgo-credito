@@ -1,4 +1,4 @@
-- TO DO: change the knn for an rnn
+
 
 ### Input data example
 
