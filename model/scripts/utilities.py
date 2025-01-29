@@ -169,7 +169,7 @@ def get_pipeline():
         ('clean_categorical_data', FunctionTransformer(clean_categorical_data)),
         ('apply_grades_encoding', FunctionTransformer(apply_grades_encoding)),
         ('encode_columns', FunctionTransformer(encode_columns)),
-        ('sda', FunctionTransformer(delete_numerical_columns))
+        ('delete_numerical_columns', FunctionTransformer(delete_numerical_columns))
     ])
 
     return pipeline
