@@ -30,8 +30,10 @@ COLUMN_NAMES = [
     "int_rate",
     "installment",
     "sub_grade",
+    "home_ownership",
     "annual_inc",
     "verification_status",
+    "pymnt_plan",
     "dti",
     "delinq_2yrs",
     "revol_util",
@@ -46,9 +48,7 @@ COLUMN_NAMES = [
     "policy_code",
     "acc_now_delinq",
     "tot_cur_bal",
-    "total_rev_hi_lim",
-    "pymnt_plan",
-    "home_ownership"
+    "total_rev_hi_lim"
 ]
 
 INPUT_LEN:int = len(COLUMN_NAMES) # LEN of data input

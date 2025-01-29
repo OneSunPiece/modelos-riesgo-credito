@@ -13,8 +13,10 @@ export default function Form({ setPrediction }) {
     "int_rate",
     "installment",
     "sub_grade",
+    "home_ownership",
     "annual_inc",
     "verification_status",
+    "pymnt_plan",
     "dti",
     "delinq_2yrs",
     "revol_util",
@@ -29,11 +31,8 @@ export default function Form({ setPrediction }) {
     "policy_code",
     "acc_now_delinq",
     "tot_cur_bal",
-    "total_rev_hi_lim",
-    "pymnt_plan",
-    "home_ownership"
+    "total_rev_hi_lim"
 ];
-
   // props
   Form.propTypes = {
     setPrediction: PropTypes.func.isRequired,
@@ -60,9 +59,15 @@ export default function Form({ setPrediction }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const featureArray = Object.values(features).map((value, index, array) => 
-      index < array.length - 2 ? Number(value) : value
-    );
+    const featureArray = Object.entries(features).map(([key, value]) => {
+      if (key === 'home_ownership') {
+        return value.toUpperCase();
+      } else if (key === 'pymnt_plan') {
+        return value; // Mantener como texto
+      } else {
+        return Number(value);
+      }
+    });
     const result = await sendPredictionRequest(featureArray);
     setPrediction(result.prediction);
   };
