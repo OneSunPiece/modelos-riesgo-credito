@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sendPredictionRequest } from "../Api/Api";
 import "./Form.css";
 
-export default function Form({ setPrediction }) {
+export default function Form({ setPrediction, setIsLoading, setIsPredicted, onFeaturesChange }) {
   // Variables
   const featureNames = [
     "loan_amnt",
@@ -36,6 +36,9 @@ export default function Form({ setPrediction }) {
   // props
   Form.propTypes = {
     setPrediction: PropTypes.func.isRequired,
+    setIsLoading: PropTypes.func.isRequired,
+    setIsPredicted: PropTypes.func.isRequired,
+    onFeaturesChange: PropTypes.func.isRequired
   };
 
   // States
@@ -57,19 +60,34 @@ export default function Form({ setPrediction }) {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    setIsLoading(true); // Set loading to true before the request
+
     const featureArray = Object.entries(features).map(([key, value]) => {
       if (key === 'home_ownership') {
         return value.toUpperCase();
       } else if (key === 'pymnt_plan') {
-        return value; // Mantener como texto
+        return value.toLowerCase();
       } else {
         return Number(value);
       }
     });
-    const result = await sendPredictionRequest(featureArray);
-    setPrediction(result.prediction);
+
+    try {
+      const result = await sendPredictionRequest(featureArray);
+      setPrediction(result.prediction);
+      setIsPredicted(true);
+      setIsLoading(false);
+      onFeaturesChange(featureArray);
+    } catch (error) {
+      console.error('Error sending prediction request:', error);
+    } finally {
+      // Set loading to false after the request is completed
+      setIsLoading(false); 
+      setIsPredicted(true);
+    }
   };
 
   return (

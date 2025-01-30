@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Arc from "./Arc/Arc";
 import Form from "./Form/Form";
+import TableComponent from "./Table/Table"; 
 // Styles
 import "./App.css";
 
 function App() {
   // States
   const [prediction, setPrediction] = useState(0);
+  const [features, setFeatures] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPredicted, setIsPredicted] = useState(false);
   
   // Functions
   function CalculateScore(prediction) {
@@ -24,9 +28,34 @@ function App() {
     return angle;
   }
 
+  // Error function approximation
+  function erf(x) {
+    const sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    const a1 = 0.254829592;
+    const a2 = -0.284496736;
+    const a3 = 1.421413741;
+    const a4 = -1.453152027;
+    const a5 = 1.061405429;
+    const p = 0.3275911;
+
+    const t = 1.0 / (1.0 + p * x);
+    const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+  
+  function CalculatePercentile(score) {
+    const mean = 575; // Mean of the distribution (average of 300 and 850)
+    const stdDev = 137.5; // Standard deviation (approximation)
+    const z = (score - mean) / stdDev;
+    const percentile = 0.5 * (1 + erf(z / Math.sqrt(2)));
+    return Math.round(percentile * 100);
+  }
+
   // Variables
   var score = CalculateScore(prediction);
   var angle = CalculateAngle(score);
+  var percentile = CalculatePercentile(score);
 
   return (
     <div className="App">
@@ -47,6 +76,12 @@ function App() {
           width={300}
           height={300}
         />
+      {isPredicted ? 
+      <div className="PredictionData">
+        <TableComponent features={features} />
+      <h3>You are in the {percentile}% Percentil!</h3>
+      </div> : null}
+      
       </section>
 
       <section className="data">
@@ -54,7 +89,13 @@ function App() {
         <p>
           Please enter the client&apos;s information to calculate the score.
         </p>
-        <Form setPrediction={setPrediction} />
+        <Form
+          setPrediction={setPrediction} 
+          setIsLoading={setIsLoading}
+          setIsPredicted={setIsPredicted}
+          onFeaturesChange={setFeatures}
+        />
+        {isLoading ? <h3>Loading...</h3> : null}
       </section>
     </div>
   );
