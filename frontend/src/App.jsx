@@ -63,7 +63,7 @@ function App() {
       <section className="Scoring">
         <h1>ScoringApp</h1>
         <span className="Link"><a href="https://github.com/OneSunPiece/modelos-riesgo-credito">Our code</a></span>
-        <span className="Link"><a href="https://drive.google.com/drive/folders/1kPMrEg4jTkIBZmZXHYwioHJtkVc7IkRQ?usp=sharing">Us</a></span>
+        <span className="Link"><a href="https://www.youtube.com/watch?v=nT8-mCH7xAo">Us</a></span>
         <p>
         ML, top notch technology, integrated with state of art designs and methodologies
         to provide you with the best scoring experience. Enhance your business with our scoring app.
